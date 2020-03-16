@@ -66,17 +66,18 @@ void demo_FFT2(int w, int h)
     // Init. After that, you can use "Resize" to change size.
     fft.InitFFT(w, h);
     // FFT
-    // Do you want to use buffer? 
+    // Do you want to use the buffer? 
+    // Step0. Define FFT2_USE_BUFF in fft.h
     // Step1. You can use "fft.BufferLoadReal" to push data.
     // Step2. Then, use "fft.FFT()" or "fft.FFT(fft.GetBufferPtr())" to run FFT
     // Step3. In addition, use "fft.BufferGetReal" or "fft.GetBufferPtr" to get data.
     fft.FFT(dat);
     // Using fft.Shift() to shift data
-    fft.Shift();
+    fft.Shift(dat);
     puts("FFT2 : FFT");
     printComplex(dat, w, h);
     // Due to we use fft.Shift, so, shift data firstly.
-    fft.Shift();
+    fft.Shift(dat);
     // Then, we can use IFFT
     fft.IFFT(dat);
     puts("FFT2 : IFFT");
@@ -91,14 +92,14 @@ void demo_FFT2(int w, int h)
 // -   |             |
 // -   |             |
 // -   | |         | |
-// -+-+-+-+-+-+-+-+-+-+--> freq
+// --+-+-+-+-+-+-+-+-+----> freq
 // Imag:
 // |\ Value
 // -
 // -   |             |
 // -   |             |
 // -   |             |
-// --+-+-+-+-+-+-+-+-+--> freq
+// --+-+-+-+-+-+-+-+-+----> freq
 void genTestWave(FFT1::complex *dat, int sz)
 {
     int i;

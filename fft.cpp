@@ -74,7 +74,9 @@ FFT2::~FFT2()
     {
         hFFT.~FFT1();                                               // 显示析构掉用于高度方向计算的FFT
         memfree(tmp);
+#ifdef FFT2_USE_BUFF
         memfree(dataBuffer);
+#endif
     }
     matW = 0;
     matH = 0;
@@ -397,7 +399,11 @@ void FFT2::InitFFT(int w, int h)
     hFFT.InitFFT(h);
     FFT1::InitFFT(w);
     tmp = memalloc(complex, h);
+#ifdef FFT2_USE_BUFF
     dataBuffer = memalloc(complex, w * h);
+#else
+    dataBuffer = NULL;
+#endif
 }
 // 改变大小
 void FFT2::Resize(int new_w, int new_h)
@@ -412,10 +418,12 @@ void FFT2::Resize(int new_w, int new_h)
 void FFT2::FFT(complex *dat)
 {
     int  i, k;
+#ifdef FFT2_USE_BUFF
     if (dat == NULL)
     {
         dat = dataBuffer;
     }
+#endif
     complex *pdat = dat;
     for (i = 0; i < matH; i++)                                      // 对行进行FFT
     {
@@ -443,10 +451,12 @@ void FFT2::FFT(complex *dat)
 void FFT2::IFFT(complex *dat)
 {
     int  i, k;
+#ifdef FFT2_USE_BUFF
     if (dat == NULL)
     {
         dat = dataBuffer;
     }
+#endif
     complex *pdat = dat;
     for (i = 0; i < matH; i++)                                      // 对行进行IFFT
     {
@@ -476,10 +486,12 @@ void FFT2::Shift(complex *dat)
     int i, j;
     int swapW = matW / 4;
     int swapH = matH / 4;
+#ifdef FFT2_USE_BUFF
     if (dat == NULL)
     {
         dat = dataBuffer;
     }
+#endif
     complex *pdat = dat;
     for (j = 0; j < matH; j++)
     {
@@ -500,6 +512,7 @@ void FFT2::Shift(complex *dat)
         }
     }
 }
+#ifdef FFT2_USE_BUFF
 // 向缓冲区加载实数
 void FFT2::BufferLoadReal(const iodata *rdat)
 {
@@ -553,3 +566,5 @@ void FFT2::BufferGetReal(iodata *rdat, GetType flag)
         rdat++;
     }
 }
+#endif // FFT2_USE_BUFF
+

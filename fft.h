@@ -30,9 +30,12 @@
 */
 #ifndef _INCLUDE_FFT_H_
 #define _INCLUDE_FFT_H_
+// define FFT2_USE_BUFF to use buffer in FFT2 class.
+// #define FFT2_USE_BUFF
 // define yourself memory mananger.
 #define memalloc(typ, count)     (typ*)malloc((count) * sizeof(typ))
 #define memfree(p)               free(p)
+// -------------------------------
 class FFT0                                          // Radix-2 lifting FFT
 {
 public:
@@ -114,6 +117,7 @@ public:
     };
     void   InitFFT(int w, int h);
     void   Resize(int new_w, int new_h);
+#ifdef FFT2_USE_BUFF
     void   FFT(complex *dat = NULL);
     void   IFFT(complex *dat = NULL);
     void   Shift(complex *dat = NULL);
@@ -123,6 +127,11 @@ public:
     {
         return dataBuffer;
     }
+#else
+    void   FFT(complex *dat);
+    void   IFFT(complex *dat);
+    void   Shift(complex *dat);
+#endif
 private:
     FFT1     hFFT;                                  // 高度方向的FFT
     int      matW, matH;

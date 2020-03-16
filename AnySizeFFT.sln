@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnySizeFFT", "AnySizeFFT.vcxproj", "{503BC4C5-ABAE-42EB-8CCA-9AFB18698650}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnySizeFFT", "_AnySizeFFT.vcxproj", "{503BC4C5-ABAE-42EB-8CCA-9AFB18698650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
