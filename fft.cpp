@@ -29,7 +29,9 @@
  SOFTWARE.
 */
 #include <math.h>
+#include <assert.h>
 #include <stdlib.h>
+#include <algorithm>
 #include "fft.h"
 FFT0::FFT0()
 {
@@ -269,8 +271,11 @@ void FFT1::InitFFT(int sz)
 // 变更大小
 void FFT1::Resize(int new_sz)
 {
-    this->~FFT1();
-    InitFFT(new_sz);
+    if (new_sz != fftSz)                                            // 只有大小不同才重新初始化
+    {
+        this->~FFT1();
+        InitFFT(new_sz);
+    }
 }
 // FFT
 void FFT1::FFT(complex *dat)

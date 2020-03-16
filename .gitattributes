@@ -1,0 +1,6 @@
+*.sln binary
+*.user binary
+*.filters binary
+*.vcxproj binary
+*.hint text
+*.rc text

@@ -28,7 +28,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
-#pragma once
+#ifndef _INCLUDE_FFT_H_
+#define _INCLUDE_FFT_H_
 // define yourself memory mananger.
 #define memalloc(typ, count)     (typ*)malloc((count) * sizeof(typ))
 #define memfree(p)               free(p)
@@ -36,7 +37,7 @@ class FFT0                                          // Radix-2 lifting FFT
 {
 public:
     FFT0();
-	~FFT0();
+    ~FFT0();
     using data = double;                            // FFT data type
     using iodata = float;                           // Buffer data type
     struct complex                                  // ∏¥ ˝¿‡–Õ
@@ -127,3 +128,4 @@ private:
     int      matW, matH;
     complex *tmp, *dataBuffer;
 };
+#endif // _INCLUDE_FFT_H_
